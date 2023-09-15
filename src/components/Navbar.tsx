@@ -1,13 +1,7 @@
-import React from "react";
+"use client";
 
 const Navbar = () => {
-  return (
-    <div>
-      {" "}
-      Hello from Navbar
-      {/* Upload button to be here */}
-    </div>
-  );
+  return <h1> Navbar</h1>;
 };
 
 export default Navbar;
