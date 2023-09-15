@@ -1,0 +1,2 @@
+1. Create Navbar and Make Uplaod button work
+2. Questions page to be implemented in which PDF and Chatting to be designed
