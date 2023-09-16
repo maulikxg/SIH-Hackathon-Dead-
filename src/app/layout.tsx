@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={cn("min-h-screen antialiased", inter.className)}>
         <Providers>
           <Navbar />
-          <div className="container border max-w-7xl border-gray-400 my-4 h-full">
+          <div className="container border max-w-7xl border-gray-400 my-4 h-full py-6">
             {children}
           </div>
         </Providers>

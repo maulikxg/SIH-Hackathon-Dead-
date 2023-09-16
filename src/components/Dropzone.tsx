@@ -201,11 +201,13 @@ const Dropzone = () => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     setUploadedFile(file);
+    console.log(file);
+    console.log(URL.createObjectURL(file));
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: "*/*", // Allow all types of files
+    // accept: ["*"], // Allow all types of files
     multiple: false, // Allow only a single file to be uploaded
   });
 
@@ -214,8 +216,10 @@ const Dropzone = () => {
       <h2>Uploaded File:</h2>
       <p>Filename: {uploadedFile.name}</p>
       <p>File Size: {uploadedFile.size} bytes</p>
-      {uploadedFile.type === "application/pdf" && (
+      {(uploadedFile.type === "application/pdf" ||
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document") && (
         <iframe
+          // type=""
           src={URL.createObjectURL(uploadedFile)}
           width="100%"
           height="500px"
@@ -224,7 +228,6 @@ const Dropzone = () => {
       )}
     </div>
   ) : null;
-
   return (
     <div className="dropzone">
       <div {...getRootProps()}>

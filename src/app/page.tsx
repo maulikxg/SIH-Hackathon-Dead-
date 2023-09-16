@@ -6,7 +6,7 @@ export default function Home() {
     <div className="flex flex-col gap-4 justify-center">
       Hey There
       <div className="border border-red-400">
-        <Dropzone className="w-[400px]" />
+        <Dropzone />
       </div>
       <Button variant={"default"} size={"default"} className="w-40">
         Upload
