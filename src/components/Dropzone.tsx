@@ -194,20 +194,23 @@
 
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { motion } from "framer-motion";
+import Icon from "./Icons";
 
 const Dropzone = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     setUploadedFile(file);
-    console.log(file);
-    console.log(URL.createObjectURL(file));
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({
+  // useEffect(() => {
+  //   console.log(uploadedFile);
+  // }, [uploadedFile]);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    // accept: ["*"], // Allow all types of files
+    accept: { "*": [] }, // Allow all types of files
     multiple: false, // Allow only a single file to be uploaded
   });
 
@@ -216,26 +219,37 @@ const Dropzone = () => {
       <h2>Uploaded File:</h2>
       <p>Filename: {uploadedFile.name}</p>
       <p>File Size: {uploadedFile.size} bytes</p>
-      {(uploadedFile.type === "application/pdf" ||
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document") && (
-        <iframe
-          // type=""
+      {uploadedFile.type === "application/pdf" && (
+        <embed
           src={URL.createObjectURL(uploadedFile)}
           width="100%"
           height="500px"
           title="PDF Preview"
-        ></iframe>
+        ></embed>
       )}
     </div>
   ) : null;
   return (
-    <div className="dropzone">
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        <p>Drag & drop a file here, or click to select a file</p>
-      </div>
+    // <div className="">
+    <div {...getRootProps({ className: "dropzone" })}>
+      <input {...getInputProps()} />
+      <motion.div
+        className="border-2 border-dashed border-blue-600 flex flex-col gap-8 justify-center max-w-2xl py-28 w-full m-auto items-center rounded-lg text-xl"
+        whileTap={{ scale: 0.8 }}
+      >
+        <Icon.upload className="h-12 w-12" />
+        {isDragActive ? (
+          <p> Now, You can have rid of that click :) </p>
+        ) : (
+          <p>
+            Drag & drop a file here, or click to{" "}
+            <span className="text-blue-700 cursor-pointer">select a file</span>
+          </p>
+        )}
+      </motion.div>
       {filePreview}
     </div>
+    // </div>
   );
 };
 
