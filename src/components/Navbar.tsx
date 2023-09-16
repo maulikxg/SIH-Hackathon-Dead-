@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Icon from "./Icons";
 
 const Navbar = () => {
@@ -10,12 +9,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-=======
-"use client";
-
-const Navbar = () => {
-  return <h1> Navbar</h1>;
->>>>>>> afa26ab6ca37fb450f7bc0ac27bf5f3d094af8d0
 };
 
 export default Navbar;
