@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 // import { useCallback, useEffect, useState } from "react";
 // import { useDropzone } from "react-dropzone";
@@ -192,8 +192,8 @@
 
 // export default Dropzone;
 
-import { useCallback, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useCallback, useState } from "react";
+import { useDropzone } from "react-dropzone";
 
 const Dropzone = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
@@ -205,7 +205,7 @@ const Dropzone = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: '*/*', // Allow all types of files
+    accept: "*/*", // Allow all types of files
     multiple: false, // Allow only a single file to be uploaded
   });
 
@@ -214,7 +214,7 @@ const Dropzone = () => {
       <h2>Uploaded File:</h2>
       <p>Filename: {uploadedFile.name}</p>
       <p>File Size: {uploadedFile.size} bytes</p>
-      {uploadedFile.type === 'application/pdf' && (
+      {uploadedFile.type === "application/pdf" && (
         <iframe
           src={URL.createObjectURL(uploadedFile)}
           width="100%"
@@ -237,4 +237,3 @@ const Dropzone = () => {
 };
 
 export default Dropzone;
-
