@@ -223,7 +223,7 @@ const Dropzone = () => {
         <embed
           src={URL.createObjectURL(uploadedFile)}
           width="100%"
-          height="500px"
+          height="150px"
           title="PDF Preview"
         ></embed>
       )}
