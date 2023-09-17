@@ -201,11 +201,14 @@ import axios, { AxiosError } from "axios";
 
 const Dropzone = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     setUploadedFile(file);
   }, []);
+
+  // useEffect(() => {
+  //   console.log(uploadedFile);
+  // }, [uploadedFile]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -248,8 +251,7 @@ const Dropzone = () => {
         console.log("Error occured", error.message);
     }
   };
-  
-   return (
+  return (
     // <div className="">
     <form onSubmit={handleSubmit} encType="multipart/form-data">
       <div className="container">
