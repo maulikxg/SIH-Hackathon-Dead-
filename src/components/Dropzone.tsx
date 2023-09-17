@@ -248,7 +248,8 @@ const Dropzone = () => {
         console.log("Error occured", error.message);
     }
   };
-  return (
+  
+   return (
     // <div className="">
     <form onSubmit={handleSubmit} encType="multipart/form-data">
       <div className="container">
@@ -270,11 +271,12 @@ const Dropzone = () => {
               </p>
             )}
           </motion.div>
-          {/* {filePreview} */}
+          {filePreview}
         </div>
         <Button type="submit">Upload</Button>
       </div>
     </form>
+
     // </div>
   );
 };
