@@ -192,10 +192,12 @@
 
 // export default Dropzone;
 
-import { useCallback, useState } from "react";
+import {FormEvent, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 import Icon from "./Icons";
+import { Button } from "./ui/Button";
+import axios, { AxiosError } from "axios";
 
 const Dropzone = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
@@ -229,8 +231,30 @@ const Dropzone = () => {
       )}
     </div>
   ) : null;
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      if (uploadedFile) {
+        const formData = new FormData();
+        formData.set("file", uploadedFile);
+        formData.set("name", "nisu");
+
+        const { data } = await axios.post("/api/uploadFile", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+
+        console.log(data);
+      }
+    } catch (error) {
+      if (error instanceof AxiosError)
+        console.log("Error occured", error.message);
+    }
+  };
   return (
     // <div className="">
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <div className="container">
     <div {...getRootProps({ className: "dropzone" })}>
       <input {...getInputProps()} />
       <motion.div
@@ -248,7 +272,11 @@ const Dropzone = () => {
         )}
       </motion.div>
       {filePreview}
-    </div>
+      </div>
+      <Button type="submit">Upload</Button>
+      </div>
+    </form>
+    
     // </div>
   );
 };
