@@ -192,7 +192,7 @@
 
 // export default Dropzone;
 
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent,useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 import Icon from "./Icons";
@@ -253,32 +253,24 @@ const Dropzone = () => {
   };
   return (
     // <div className="">
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
-      <div className="container">
-        <div {...getRootProps({ className: "dropzone" })}>
-          <input {...getInputProps()} />
-          <motion.div
-            className="border-2 border-dashed border-blue-600 flex flex-col gap-8 justify-center max-w-2xl py-28 w-full m-auto items-center rounded-lg text-xl"
-            whileTap={{ scale: 0.8 }}
-          >
-            <Icon.upload className="h-12 w-12" />
-            {isDragActive ? (
-              <p> Now, You can have rid of that click :) </p>
-            ) : (
-              <p>
-                Drag & drop a file here, or click to{" "}
-                <span className="text-blue-700 cursor-pointer">
-                  select a file
-                </span>
-              </p>
-            )}
-          </motion.div>
-          {filePreview}
-        </div>
-        <Button type="submit">Upload</Button>
-      </div>
-    </form>
-
+    <div {...getRootProps({ className: "dropzone" })}>
+      <input {...getInputProps()} />
+      <motion.div
+        className="border-2 border-dashed border-blue-600 flex flex-col gap-8 justify-center max-w-2xl py-28 w-full m-auto items-center rounded-lg text-xl"
+        whileTap={{ scale: 0.8 }}
+      >
+        <Icon.upload className="h-12 w-12" />
+        {isDragActive ? (
+          <p> Now, You can have rid of that click :) </p>
+        ) : (
+          <p>
+            Drag & drop a file here, or click to{" "}
+            <span className="text-blue-700 cursor-pointer">select a file</span>
+          </p>
+        )}
+      </motion.div>
+      {filePreview}
+    </div>
     // </div>
   );
 };
