@@ -253,6 +253,9 @@ const Dropzone = () => {
   };
   return (
     // <div className="">
+    
+    <form onSubmit={handleSubmit} encType="multipart/form-data" style={{ width: '465px' }}>
+    <div className="container">
     <div {...getRootProps({ className: "dropzone" })}>
       <input {...getInputProps()} />
       <motion.div
@@ -270,7 +273,11 @@ const Dropzone = () => {
         )}
       </motion.div>
       {filePreview}
-    </div>
+      </div>
+      <Button type="submit">Upload</Button>
+      </div>
+    </form>
+    
     // </div>
   );
 };
