@@ -253,7 +253,7 @@ const Dropzone = () => {
   };
   return (
     // <div className="">
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <form onSubmit={handleSubmit} encType="multipart/form-data" style={{ width: '465px' }}>
     <div className="container">
     <div {...getRootProps({ className: "dropzone" })}>
       <input {...getInputProps()} />
