@@ -192,7 +192,7 @@
 
 // export default Dropzone;
 
-import {FormEvent, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 import Icon from "./Icons";
@@ -253,8 +253,6 @@ const Dropzone = () => {
   };
   return (
     // <div className="">
-    <form onSubmit={handleSubmit} encType="multipart/form-data" style={{ width: '465px' }}>
-    <div className="container">
     <div {...getRootProps({ className: "dropzone" })}>
       <input {...getInputProps()} />
       <motion.div
@@ -272,11 +270,7 @@ const Dropzone = () => {
         )}
       </motion.div>
       {filePreview}
-      </div>
-      <Button type="submit">Upload</Button>
-      </div>
-    </form>
-    
+    </div>
     // </div>
   );
 };

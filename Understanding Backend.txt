@@ -1,0 +1,19 @@
+The file is to be taken from the user
+
+If file is too big then we have to convert it into chunks
+These chunks is to be taken one by one and convert it into embedding using Langchain Model.
+Hugging face is the platform to get the models.
+
+These embeddings will be stored in vectored database
+
+Question will be asked by user, Convert this question into embedding using Langchain Model. 
+Now, perform the dot product of question and pdf. It will return context related to it.
+
+This context + Asked Question to be passed to Completion Model.
+
+This Completion Model will answer the Proper Question.
+
+
+
+
+-- Pinecone db will be take if free
