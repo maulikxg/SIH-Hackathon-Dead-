@@ -192,7 +192,7 @@
 
 // export default Dropzone;
 
-import { useCallback, useState } from "react";
+import { FormEvent,useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 import Icon from "./Icons";
