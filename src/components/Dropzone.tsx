@@ -235,7 +235,7 @@ const Dropzone = ({ uploadedFile, setUploadedFile }: DropZoneProps) => {
       <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
         <motion.div
-          className="border-2 border-dashed border-black/30 flex flex-col gap-8 justify-center max-w-2xl py-28 w-full m-auto items-center rounded-lg text-sm md:text-md px-4"
+          className="border-2 border-dashed border-black/30 flex flex-col gap-8 justify-center max-w-2xl py-28 w-full m-auto items-center rounded-lg text-xs md:text-md px-4"
           whileTap={{ scale: 0.8 }}
         >
           <Icon.upload className="h-12 w-12" />

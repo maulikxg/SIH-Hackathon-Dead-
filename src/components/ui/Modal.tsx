@@ -1,54 +1,4 @@
 "use client";
-// import {
-//   Modal,
-//   ModalContent,
-//   ModalHeader,
-//   ModalBody,
-//   ModalFooter,
-//   Button,
-//   useDisclosure,
-// } from "@nextui-org/react";
-
-// export default function NextUIModal() {
-//   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-//   return (
-//     <>
-//       <Button onPress={onOpen}>Open Modal</Button>
-//       {/* <Button
-//         onPress={onOpen}
-//         variant={"default"}
-//         size={"default"}
-//         className="w-40"
-//       >
-//         Upload
-//       </Button> */}
-//       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-//         <ModalContent>
-//           {(onClose) => (
-//             <>
-//               <ModalHeader className="flex flex-col gap-1">
-//                 Upload Document
-//               </ModalHeader>
-//               <ModalBody>
-//                 <Dropzone />
-//               </ModalBody>
-//               <ModalFooter>
-//                 <Button color="danger" variant="light" onPress={onClose}>
-//                   Cancel
-//                 </Button>
-//                 <Button color="primary" onPress={onClose}>
-//                   Upload
-//                 </Button>
-//               </ModalFooter>
-//             </>
-//           )}
-//         </ModalContent>
-//       </Modal>
-//     </>
-//   );
-
-// }
 import {
   Dialog,
   DialogContent,
@@ -61,14 +11,13 @@ import {
 import axios, { AxiosError } from "axios";
 import { useState, FormEvent } from "react";
 import Dropzone from "../Dropzone";
+import { useMutation } from "@tanstack/react-query";
 import { Button } from "./Button";
 
 export default function Modal() {
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Inside");
-
-    try {
+  const { mutate: handleSubmit, isLoading } = useMutation({
+    mutationFn: async () => {
+      // try {
       if (uploadedFile) {
         const formData = new FormData();
         formData.set("file", uploadedFile);
@@ -80,11 +29,48 @@ export default function Modal() {
 
         console.log(data);
         setUploadedFile(null);
+      } else {
+        console.log("File Not Uploaded");
       }
-    } catch (error) {
-      if (error instanceof AxiosError)
-        console.log("Error occured", error.message);
-    }
+      // }
+      // } catch (error) {
+      // if (error instanceof AxiosError)
+      //   console.log("Error occured", error.message);
+      // console.log("Something went wrong", error);
+      // }
+    },
+    onError: (err) => {
+      if (err instanceof AxiosError) console.log("Error occured", err.message);
+      console.log("Something went wrong", err);
+    },
+    onSuccess: () => {
+      console.log("Data Uploaded");
+    },
+  });
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // console.log("Inside");
+    handleSubmit();
+
+    // try {
+    //   if (uploadedFile) {
+    //     const formData = new FormData();
+    //     formData.set("file", uploadedFile);
+    //     formData.set("name", "nisu");
+
+    //     const { data } = await axios.post("/api/uploadFile", formData, {
+    //       headers: { "Content-Type": "multipart/form-data" },
+    //     });
+
+    //     console.log(data);
+    //     setUploadedFile(null);
+    //   }
+    // } catch (error) {
+    //   if (error instanceof AxiosError)
+    //     console.log("Error occured", error.message);
+    //   console.log("Something went wrong", error);
+    // }
   };
 
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
@@ -106,7 +92,14 @@ export default function Modal() {
             setUploadedFile={setUploadedFile}
           />
           <DialogFooter>
-            <Button type="submit">Upload From Modal</Button>
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="disabled:bg-red-900"
+            >
+              {isLoading ? <>Loading...</> : <>Upload</>}
+              {/* Upload */}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
