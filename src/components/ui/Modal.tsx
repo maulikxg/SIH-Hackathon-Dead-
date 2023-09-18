@@ -13,8 +13,10 @@ import { useState, FormEvent } from "react";
 import Dropzone from "../Dropzone";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "./Button";
+import { useRouter } from 'next/navigation'
 
 export default function Modal() {
+  const router = useRouter()
   const { mutate: handleSubmit, isLoading } = useMutation({
     mutationFn: async () => {
       // try {
@@ -76,7 +78,7 @@ export default function Modal() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   return (
     <Dialog>
-      <DialogTrigger className="bg-black text-while px-4 py-2 font-semibold text-white w-[200px] hover:bg-gray-900 rounded-lg">
+      <DialogTrigger onClick={() => router.push('/upload')} className="bg-black text-while px-4 py-2 font-semibold text-white w-[200px] hover:bg-gray-900 rounded-lg">
         Upload
       </DialogTrigger>
       <DialogContent>
