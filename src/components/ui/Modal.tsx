@@ -79,6 +79,7 @@ export default function Modal() {
         });
 
         console.log(data);
+        setUploadedFile(null);
       }
     } catch (error) {
       if (error instanceof AxiosError)

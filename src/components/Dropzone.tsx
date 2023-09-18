@@ -216,26 +216,26 @@ const Dropzone = ({ uploadedFile, setUploadedFile }: DropZoneProps) => {
 
   const filePreview = uploadedFile ? (
     <div className="file-preview">
-      <h2>Uploaded File:</h2>
-      <p>Filename: {uploadedFile.name}</p>
-      <p>File Size: {uploadedFile.size} bytes</p>
-      {uploadedFile.type === "application/pdf" && (
+      {/* <h2>Uploaded File:</h2> */}
+      {/* <p>Filename: {uploadedFile.name}</p> */}
+      {/* <p>File Size: {uploadedFile.size} bytes</p> */}
+      {/* {uploadedFile.type === "application/pdf" && (
         <embed
           src={URL.createObjectURL(uploadedFile)}
           width="100%"
           height="150px"
           title="PDF Preview"
         ></embed>
-      )}
+      )} */}
     </div>
   ) : null;
 
   return (
-    <div className="container flex flex-col gap-4">
+    <div className="container flex flex-col gap-4 my-4">
       <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
         <motion.div
-          className="border-2 border-dashed border-blue-600 flex flex-col gap-8 justify-center max-w-2xl py-28 w-full m-auto items-center rounded-lg text-md md:text-lg"
+          className="border-2 border-dashed border-black/30 flex flex-col gap-8 justify-center max-w-2xl py-28 w-full m-auto items-center rounded-lg text-sm md:text-md px-4"
           whileTap={{ scale: 0.8 }}
         >
           <Icon.upload className="h-12 w-12" />
@@ -243,14 +243,21 @@ const Dropzone = ({ uploadedFile, setUploadedFile }: DropZoneProps) => {
             <p> Now, You can have rid of that click :) </p>
           ) : (
             <p>
-              Drag & drop a file here, or click to{" "}
-              <span className="text-blue-700 cursor-pointer">
-                select a file
-              </span>
+              {uploadedFile ? (
+                <p>{uploadedFile.name}</p>
+              ) : (
+                <p>
+                  {" "}
+                  Drag & drop a file here, or click to{" "}
+                  <span className="text-blue-700 cursor-pointer">
+                    select a file
+                  </span>
+                </p>
+              )}
             </p>
           )}
         </motion.div>
-        {filePreview}
+        {/* {filePreview} */}
       </div>
     </div>
   );
