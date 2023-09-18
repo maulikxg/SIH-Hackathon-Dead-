@@ -15,7 +15,6 @@ export async function POST(req: NextRequest) {
   const buffer = Buffer.from(bytes);
 
   //  Here the file is recieved in form of Buffer, We can store the file anywhere from this point
-
   const filepath = path.join(process.cwd(), "/src/app/api/uploads", file.name);
   console.log(filepath);
 

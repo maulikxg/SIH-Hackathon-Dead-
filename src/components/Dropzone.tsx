@@ -192,23 +192,21 @@
 
 // export default Dropzone;
 
-import { FormEvent,useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 import Icon from "./Icons";
-import { Button } from "./ui/Button";
-import axios, { AxiosError } from "axios";
+type DropZoneProps = {
+  uploadedFile: File | null;
+  setUploadedFile: React.Dispatch<File | null>;
+};
 
-const Dropzone = () => {
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+const Dropzone = ({ uploadedFile, setUploadedFile }: DropZoneProps) => {
+  // const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     setUploadedFile(file);
   }, []);
-
-  // useEffect(() => {
-  //   console.log(uploadedFile);
-  // }, [uploadedFile]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -232,53 +230,29 @@ const Dropzone = () => {
     </div>
   ) : null;
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      if (uploadedFile) {
-        const formData = new FormData();
-        formData.set("file", uploadedFile);
-        formData.set("name", "nisu");
-
-        const { data } = await axios.post("/api/uploadFile", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-
-        console.log(data);
-      }
-    } catch (error) {
-      if (error instanceof AxiosError)
-        console.log("Error occured", error.message);
-    }
-  };
   return (
-    // <div className="">
-    
-    <form onSubmit={handleSubmit} encType="multipart/form-data" style={{ width: '465px' }}>
-    <div className="container">
-    <div {...getRootProps({ className: "dropzone" })}>
-      <input {...getInputProps()} />
-      <motion.div
-        className="border-2 border-dashed border-blue-600 flex flex-col gap-8 justify-center max-w-2xl py-28 w-full m-auto items-center rounded-lg text-xl"
-        whileTap={{ scale: 0.8 }}
-      >
-        <Icon.upload className="h-12 w-12" />
-        {isDragActive ? (
-          <p> Now, You can have rid of that click :) </p>
-        ) : (
-          <p>
-            Drag & drop a file here, or click to{" "}
-            <span className="text-blue-700 cursor-pointer">select a file</span>
-          </p>
-        )}
-      </motion.div>
-      {filePreview}
+    <div className="container flex flex-col gap-4">
+      <div {...getRootProps({ className: "dropzone" })}>
+        <input {...getInputProps()} />
+        <motion.div
+          className="border-2 border-dashed border-blue-600 flex flex-col gap-8 justify-center max-w-2xl py-28 w-full m-auto items-center rounded-lg text-md md:text-lg"
+          whileTap={{ scale: 0.8 }}
+        >
+          <Icon.upload className="h-12 w-12" />
+          {isDragActive ? (
+            <p> Now, You can have rid of that click :) </p>
+          ) : (
+            <p>
+              Drag & drop a file here, or click to{" "}
+              <span className="text-blue-700 cursor-pointer">
+                select a file
+              </span>
+            </p>
+          )}
+        </motion.div>
+        {filePreview}
       </div>
-      <Button type="submit">Upload</Button>
-      </div>
-    </form>
-    
-    // </div>
+    </div>
   );
 };
 
