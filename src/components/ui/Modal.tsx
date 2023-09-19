@@ -95,11 +95,7 @@ export default function Modal() {
             setUploadedFile={setUploadedFile}
           />
           <DialogFooter>
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="disabled:bg-red-900"
-            >
+            <Button type="submit" disabled={isLoading}>
               {isLoading ? <>Loading...</> : <>Upload</>}
               {/* Upload */}
             </Button>
